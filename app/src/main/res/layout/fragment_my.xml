@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <!-- 主题背景 -->
+    <ImageView
+        android:id="@+id/theme_background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+    />
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="-100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center"/>
+        <ImageButton
+            android:id="@+id/settings_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/setting"
+            android:padding="7dp"
+            android:layout_gravity="end"
+            android:textColor="@color/black"
+            android:background="@drawable/baord"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-200dp"></ImageButton>
+    </LinearLayout>
+    <!-- 头像和昵称布局 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:gravity="center_vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/profile_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Additional Info"
+                android:textSize="14sp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/round_corner"
+    android:padding="10dp"
+
+    >
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="说明"></TextView>
+</LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="6dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/my"
+                >
+
+                <TextView
+                    android:id="@+id/Ilike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="喜欢数"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:src="@drawable/ic_ilike"
+                    style="@style/myo"
+
+      />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/my">
+
+                <TextView
+                    android:id="@+id/Iliked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="点赞数"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:src="@drawable/ic_iliked"
+                    style="@style/myo" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/my">
+
+                <TextView
+                    android:id="@+id/commentLiked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="被赞数"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:src="@drawable/ic_pinlike"
+                    style="@style/myo" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/my">
+
+                <TextView
+                    android:id="@+id/reply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="评论数"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:src="@drawable/ic_pin"
+                    style="@style/myo" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                   style="@style/myo"
+                    android:src="@drawable/mail"/>
+                <TextView
+                    android:id="@+id/email"
+                    style="@style/myi"
+                    android:textSize="10sp"
+                    android:text="邮箱"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/address"
+                   style="@style/myo"/>
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/myi"
+                    android:text="地址"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/time"
+                    style="@style/myo"/>
+                <TextView
+                    android:id="@+id/register_time"
+                    style="@style/myi"
+                    android:text="注册时间"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    style="@style/myo"
+                    android:src="@drawable/gender"/>
+                <TextView
+                    android:id="@+id/gender"
+                    style="@style/myi"
+                    android:text="性别"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    style="@style/myo"
+                    android:src="@drawable/bir"/>
+                <TextView
+                    android:id="@+id/birthday"
+                    style="@style/myi"
+                    android:text="生日"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+        <!-- RecyclerView 显示发布的作品 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:padding="16dp" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_chat_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/img_7"
+        app:backgroundTint="@color/colorAccent" />
+</RelativeLayout>

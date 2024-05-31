@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/img_6"
+    android:padding="16dp">
+
+    <EditText
+
+        android:id="@+id/usernameEditText"
+
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="400dp"
+        android:paddingLeft="10dp"
+        android:hint="请输入账号"
+        android:background="@drawable/rounded_corner"
+        android:inputType="textPersonName"
+/>
+
+    <EditText
+        android:id="@+id/passwordEditText"
+
+        android:layout_marginTop="37dp"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:background="@drawable/rounded_corner"
+/>
+
+    <Button
+
+        android:layout_marginTop="50dp"
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#697070"
+        android:text="注册"/>
+
+</LinearLayout>

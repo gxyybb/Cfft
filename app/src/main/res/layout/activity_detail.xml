@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFF9E6"
+    android:padding="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- 详细信息布局 -->
+        <LinearLayout
+            android:id="@+id/detailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@drawable/circle"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/userAvatarImageView"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="fitCenter"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="User Name" />
+                <TextView
+                    android:id="@+id/publishTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    tools:text="日期" />
+                </LinearLayout>
+        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/imageLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/detailTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="Title" />
+
+            <!-- 描述 -->
+            <TextView
+                android:id="@+id/detailDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                tools:text="Description" />
+
+
+            <!-- 内容 -->
+            <TextView
+                android:id="@+id/contentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Content" />
+
+            <!-- 图片资源 -->
+            <ImageView
+                android:id="@+id/imageResourceImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+ />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"> <!-- 设置水平靠右对齐 -->
+<LinearLayout
+    android:id="@+id/like"
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="40dp"
+    android:orientation="horizontal">
+                <!-- 点赞图标 -->
+                <ImageView
+                    android:id="@+id/likeImageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/like_corn" />
+
+                <!-- 点赞数文本 -->
+                <TextView
+                    android:id="@+id/likeCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:text="0" />
+</LinearLayout>
+                <!-- 评论图标 -->
+                <ImageView
+                    android:id="@+id/commentImageView"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/comment2_icon"
+                    android:layout_marginStart="8dp" />
+
+                <!-- 评论数文本 -->
+                <TextView
+                    android:id="@+id/commentCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:text="0"
+                    android:layout_marginStart="4dp" />
+
+            </LinearLayout>
+
+
+            <!-- 其他详细信息，根据需要添加 -->
+
+        </LinearLayout>
+
+
+        <!-- 评论区域 -->
+
+        <!-- 评论输入框和提交评论按钮 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/detailLayout"
+            app:layout_constraintBottom_toTopOf="@id/commentLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <LinearLayout
+            android:id="@+id/commentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- 评论输入框 -->
+            <EditText
+                android:id="@+id/commentEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入评论"
+                android:inputType="textMultiLine"
+
+                android:maxLines="4"
+                android:scrollbars="vertical" />
+
+            <!-- 提交评论按钮 -->
+            <Button
+                android:id="@+id/submitCommentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="提交评论" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

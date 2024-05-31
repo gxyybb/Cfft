@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- 顶部按钮 -->
+    <Button
+        android:id="@+id/changeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="ChatAi"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#989898"
+        android:padding="10dp"
+        android:onClick="onChangeButtonClick"/>
+
+    <!-- 聊天消息列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/inputLayout"
+        android:layout_below="@id/changeButton"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"/>
+
+    <!-- 输入框布局 -->
+    <RelativeLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#F0F0F0"
+        android:padding="8dp"
+        android:elevation="4dp">
+
+        <!-- 切换按钮 -->
+        <ImageButton
+            android:id="@+id/toggleInputButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+           android:src="@drawable/change"
+            android:scaleType="fitCenter"
+            android:background="@drawable/button_background"
+            android:padding="10dp"/>
+
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_toEndOf="@id/toggleInputButton"
+            android:layout_toStartOf="@id/sendButton"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_background"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:hint="Type a message"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+
+        <!-- 发送按钮 -->
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:text="发送"
+            android:backgroundTint="#CCCACA"
+            android:textColor="#000000"
+
+
+            android:padding="10dp"/>
+
+        <!-- 录音按钮 -->
+        <Button
+            android:id="@+id/recordButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="按住说话"
+            android:layout_marginLeft="45dp"
+            android:visibility="gone"
+            android:backgroundTint="#AFAFAF"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+    <!-- 滑动提示布局 -->
+    <LinearLayout
+        android:id="@+id/swipeHintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="#CCFFFFFF">
+
+        <TextView
+            android:id="@+id/swipeHintLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左滑取消"
+            android:textColor="#FF0000"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:layout_gravity="start"/>
+
+        <TextView
+            android:id="@+id/swipeHintRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="右滑发送到convert"
+            android:textColor="#00FF00"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:layout_gravity="end"/>
+
+        <TextView
+            android:id="@+id/swipeHintDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下滑发送到/chat/file"
+            android:textColor="#0000FF"
+            android:background="#FFFFFF"
+            android:padding="10dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>

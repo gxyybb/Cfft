@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/item_border"
+    android:layout_marginTop="50dp"
+    android:layout_marginBottom="50dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_margin="4dp">
+
+    <!-- 顶部用户信息部分 -->
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <!-- 用户头像 -->
+        <ImageView
+            android:id="@+id/userAvatarImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/img_7"
+            android:scaleType="centerCrop"/>
+
+        <!-- 用户昵称 -->
+        <TextView
+            android:id="@+id/userNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <!-- 文本内容和标题 -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/contentTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"/>
+
+
+    <!-- 底部点赞和评论部分 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <!-- 点赞文本 -->
+        <TextView
+            android:id="@+id/likeTextView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="0 Likes"
+
+            android:drawablePadding="8dp"
+            android:layout_marginEnd="16dp"/>
+
+
+        <TextView
+            android:id="@+id/commentEditText"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="0 "
+
+            android:drawablePadding="8dp"
+            android:layout_marginEnd="16dp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter()
+////        // 添加阿里云镜像地址
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+////        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+////
+//        maven { url 'https://jitpack.io' }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+//        // 添加阿里云镜像地址
+//        maven { url 'https://maven.aliyun.com/repository/google' }
+//        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+    }
+}
+rootProject.name = "Cfft"
+include ':app'
+include ':Tetris-master'
+include ':saolei'
+//include ':JChineseChess-master'
+include ':2048Game-master'
+include ':Android-Gobang-Wuziqi-master'

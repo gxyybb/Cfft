@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/img_6"
+    android:padding="16dp">
+
+    <ImageView
+
+        android:src="@drawable/img_8"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="300dp"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            >
+
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="0dp"
+        android:layout_weight="3"
+        android:hint="请输入账号"
+        android:background="@drawable/rounded_corner" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="37dp"
+            android:id="@+id/editTextPassword"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="45dp"
+            android:paddingLeft="10dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_corner"/>
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <ImageButton
+        android:id="@+id/buttonLogin"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button" />
+
+    <TextView
+        android:id="@+id/regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="没有账户？马上注册" />
+</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@null</item> <!-- 设置背景为 null -->
+    </style>
+    <style name="MenuItemStyle" parent="@android:style/Widget.TextView">
+        <item name="android:background">@drawable/rounded_yellow_bg</item> <!-- 应用圆角深黄色背景 -->
+        <item name="android:textColor">@android:color/white</item> <!-- 文本颜色为白色 -->
+    </style>
+    <style name="PersonalInfoLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@drawable/border_bg</item> <!-- 边框背景样式 -->
+    </style>
+    <style name="my">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="myo">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">20dp</item>
+    </style>
+    <style name="myi">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_gravity">center</item>
+
+    </style>
+
+        <!-- 全屏对话框样式 -->
+        <style name="FullScreenDialog" parent="Theme.AppCompat.NoActionBar">
+            <item name="android:windowNoTitle">true</item>
+            <item name="android:windowFullscreen">true</item>
+            <item name="android:windowIsTranslucent">true</item>
+            <item name="android:windowBackground">@android:color/black</item>
+        </style>
+
+
+</resources>

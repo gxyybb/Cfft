@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9E6"
+    android:padding="16dp"
+    tools:context=".EditProfileActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<LinearLayout
+    android:id="@+id/picture"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!-- 用户头像 -->
+
+    <ImageView
+        android:id="@+id/profile_background_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:padding="-16dp"
+
+
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="-100dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop" />
+</LinearLayout>
+    <!-- 用户名编辑框 -->
+    <LinearLayout
+        android:id="@+id/username_edit_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/picture"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:text="用户名"/>
+    <EditText
+        android:id="@+id/username_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="20dp"
+        android:background="@drawable/round_corner"
+
+        android:inputType="textPersonName" />
+</LinearLayout>
+    <!-- 昵称编辑框 -->
+    <LinearLayout
+        android:id="@+id/username_edit_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text1"
+
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="昵称"/>
+    <EditText
+        android:id="@+id/nickname_edit_text"
+        android:layout_width="match_parent"
+
+        android:background="@drawable/round_corner"
+        android:layout_height="45dp"
+        android:paddingLeft="20dp"
+        android:inputType="textPersonName" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/username_edit_text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text2"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="性别"/>
+    <EditText
+        android:id="@+id/gender_edit_text"
+        android:layout_width="match_parent"
+
+        android:paddingLeft="20dp"
+        android:background="@drawable/round_corner"
+        android:layout_height="45dp"
+        android:inputType="textPersonName" />
+    </LinearLayout>
+    <!-- 简介编辑框 -->
+    <LinearLayout
+        android:id="@+id/username_edit_text4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text8"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="个性签名"/>
+    <EditText
+        android:id="@+id/bio_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:background="@drawable/round_corner"
+        android:paddingLeft="20dp"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLines="5" />
+    </LinearLayout>
+    <!-- 电子邮件编辑框 -->
+    <LinearLayout
+        android:id="@+id/username_edit_text5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text3"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="邮箱"/>
+    <EditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:background="@drawable/round_corner"
+        android:paddingLeft="20dp"
+        android:inputType="textEmailAddress" />
+    </LinearLayout>
+    <!-- 地址编辑框 -->
+    <LinearLayout
+        android:id="@+id/username_edit_text6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text5"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="地址"/>
+    <EditText
+        android:id="@+id/address_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:background="@drawable/round_corner"
+        android:paddingLeft="20dp"
+        android:inputType="textPostalAddress" />
+    </LinearLayout>
+    <!-- 地址编辑框 -->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/username_edit_text7"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/username_edit_text6"-->
+<!--        android:orientation="horizontal">-->
+<!--    <TextView-->
+<!--        android:layout_width="75dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="地址"/>-->
+<!--    <EditText-->
+<!--        android:id="@+id/time_edit_text"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginTop="8dp"-->
+
+<!--        android:inputType="textPostalAddress" />-->
+<!--    </LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/username_edit_text8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/username_edit_text6"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:text="生日"/>
+
+    <EditText
+        android:id="@+id/birthday_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="20dp"
+        android:background="@drawable/round_corner"
+        android:focusable="false"
+        android:clickable="true"
+        android:hint="选择生日"
+        android:inputType="date" />
+</LinearLayout>
+    <!-- 保存按钮 -->
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_edit_text4"
+        android:layout_centerHorizontal="true"
+
+        android:backgroundTint="#CDB462"
+        android:text="保存"
+        android:textSize="20dp"
+        android:layout_marginTop="32dp"
+       />
+
+</RelativeLayout>
+</ScrollView>

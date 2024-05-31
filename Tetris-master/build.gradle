@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+    compileSdkVersion 34
+    namespace 'cn.xydzjnq.tetris'
+    defaultConfig {
+
+//        applicationId "cn.xydzjnq.tetris"
+        minSdkVersion 28
+        targetSdkVersion 34
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        renderscriptTargetApi 28
+        renderscriptSupportModeEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // 更新appcompat-v7为AndroidX版本
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    // 更新constraint-layout为AndroidX版本
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'com.google.code.gson:gson:2.8.9' // 更新Gson版本
+    // 更新recyclerview-v7为AndroidX版本
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.core:core-ktx:+'
+    testImplementation 'junit:junit:4.13.2' // 更新JUnit版本
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3' // 更新为AndroidX的测试库
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0' // 更新Espresso版本
+    // 如果你还需要其他Support库的组件，请查找对应的AndroidX版本并替换
+}

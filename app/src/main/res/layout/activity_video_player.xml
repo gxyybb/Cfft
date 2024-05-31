@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF9E6">
+    <LinearLayout
+        android:id="@+id/videoparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <VideoView
+        android:id="@+id/video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <!-- MediaController 放置在 VideoView 下方 -->
+    <MediaController
+        android:id="@+id/mediaController"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/videoparent" />
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Video Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_below="@id/videoparent" />
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Video Description"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_below="@id/textViewTitle" />
+    <TextView
+        android:id="@+id/textViewPublishTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Video Description"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_below="@id/textViewDescription" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPublishTime"
+        />
+
+</RelativeLayout>

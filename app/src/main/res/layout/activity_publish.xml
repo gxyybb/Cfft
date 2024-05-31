@@ -1,0 +1,138 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#433627">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="发布动态"
+            android:textSize="50dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/>
+        <LinearLayout
+            android:id="@+id/textpublish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Title"
+            android:background="@drawable/rounded_corner"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText_userName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:padding="10dp"
+                android:background="@drawable/round_corner"
+                android:hint="标题"
+                android:inputType="textPersonName" />
+
+            <EditText
+            android:id="@+id/editText_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                android:padding="10dp"
+            android:hint="内容"
+            android:minLines="2"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/editText_userName"
+            android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+        <!-- 第一个 LinearLayout 包含添加按钮 -->
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/textpublish"
+            android:layout_marginBottom="16dp">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/buttonLayout"
+            android:layout_marginBottom="16dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/rounded_corner"
+                android:padding="10dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageLayout"
+            android:background="@drawable/rounded_corner"
+            android:orientation="horizontal"
+            android:gravity="center">
+                <ImageButton
+                    android:id="@+id/button_addImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/circle"
+                    android:src="@drawable/picture"
+                    android:text="Add Image"
+                    />
+            <ImageButton
+                android:id="@+id/button_camare"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camare"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="Publish"
+                android:layout_below="@id/imageLayout"
+                android:layout_centerHorizontal="true"/>
+            <ImageButton
+            android:id="@+id/button_delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/delete"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="Publish"
+            android:layout_below="@id/imageLayout"
+            android:layout_centerHorizontal="true"/>
+            <ImageButton
+            android:id="@+id/button_publish"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/publish"
+                android:background="@drawable/circle"
+                android:padding="10dp"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+            android:text="Publish"
+            android:layout_below="@id/imageLayout"
+            android:layout_centerHorizontal="true"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</ScrollView>
