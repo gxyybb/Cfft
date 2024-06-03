@@ -40,8 +40,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import okhttp3.Call;
@@ -75,21 +77,21 @@ public class DetailActivity extends AppCompatActivity {
         commentEditText = findViewById(R.id.commentEditText);
         lickText = findViewById(R.id.likeCountTextView);
         Button submitCommentButton = findViewById(R.id.submitCommentButton);
-        replyRecyclerView = findViewById(R.id.replyRecyclerView);
-        replyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
 
         // 创建并设置适配器
-        replyAdapter = new ReplyAdapter();
-        replyRecyclerView.setAdapter(replyAdapter);
+//        replyAdapter = new ReplyAdapter();
+//        replyRecyclerView.setAdapter(replyAdapter);
 
-        // 添加示例数据到回复列表
-        List<Reply> replyList = new ArrayList<>();
-        replyList.add(new Reply("User1", "Content1", "1 hour ago"));
-        replyList.add(new Reply("User2", "Content2", "2 hours ago"));
-        // 添加更多回复...
+//        // 添加示例数据到回复列表
+//        List<Reply> replyList = new ArrayList<>();
+//        replyList.add(new Reply("User1", "Content1", "1 hour ago"));
+//        replyList.add(new Reply("User2", "Content2", "2 hours ago"));
+//        // 添加更多回复...
 
         // 更新适配器的数据集
-        replyAdapter.setReplyList(replyList);
+//        replyAdapter.setReplyList(replyList);
         likeTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -344,6 +346,8 @@ public class DetailActivity extends AppCompatActivity {
 
 // 将 Object 类型的数据转换为 List<CommentVO>
                             List<CommentVO> commentList = new ArrayList<>();
+                            Map<Integer, CommentVO> commentMap = new HashMap<>();
+
                             if (data instanceof List) {
                                 for (Object obj : (List<?>) data) {
                                     if (obj instanceof LinkedTreeMap) {
@@ -358,20 +362,38 @@ public class DetailActivity extends AppCompatActivity {
                                             commentVO.setPublishTime(publishTime);
                                         } catch (ParseException e) {
                                             e.printStackTrace();
-                                            // 解析失败，处理异常情况
                                         }
                                         commentVO.setUserImage((String) map.get("userImage"));
-
                                         commentVO.setUsername((String) map.get("username"));
                                         commentVO.setPostId(((Double) map.get("postId")).intValue());
-//                                        commentVO.setParentCommentId(((Double) map.get("parentCommentId")).intValue());
+                                        Object parentCommentIdObj = map.get("parentCommentId");
+                                        if (parentCommentIdObj != null) {
+                                            commentVO.setParentCommentId(((Double) parentCommentIdObj).intValue());
+                                        } else {
+                                            // 如果允许 parentCommentId 为 null，则在这种情况下设置为 null
+                                            commentVO.setParentCommentId(null); // 确保 ParentCommentId 的类型允许 null 值
+                                        }
+
                                         commentVO.setLikeCount(((Double) map.get("likeCount")).intValue());
                                         commentVO.setReplyCount(((Double) map.get("replyCount")).intValue());
-                                        // 设置其他属性...
-                                        commentList.add(commentVO);
+                                        commentVO.setReplies(new ArrayList<>()); // 初始化子评论列表
+
+                                        commentMap.put(commentVO.getCommentId(), commentVO);
+                                    }
+                                }
+
+                                for (CommentVO comment : commentMap.values()) {
+                                    if (comment.getParentCommentId() == null) { // 顶层评论
+                                        commentList.add(comment);
+                                    } else { // 子评论
+                                        CommentVO parentComment = commentMap.get(comment.getParentCommentId());
+                                        if (parentComment != null) {
+                                            parentComment.getReplies().add(comment);
+                                        }
                                     }
                                 }
                             }
+
 
                             // 初始化适配器并绑定到 ListView
 
@@ -380,8 +402,8 @@ public class DetailActivity extends AppCompatActivity {
                             mRecyclerView = findViewById(R.id.commentRecyclerView);
                             mAdapter = new CommentAdapter(DetailActivity.this, commentList);
                             mRecyclerView.setAdapter(mAdapter);
-// 获取每个评论的回复数据并更新 RecyclerView
-                            fetchRepliesForComments(commentList);
+//// 获取每个评论的回复数据并更新 RecyclerView
+//                            fetchRepliesForComments(commentList);
                         }
                     });
                 } else {

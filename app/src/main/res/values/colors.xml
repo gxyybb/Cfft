@@ -6,5 +6,7 @@
     <color name="colorBackground2">#E7A429</color>
     <color name="colorBackground3">#DDFFFF</color>
     <color name="colorBackground4">#B1EA8C</color>
+    <color name="accuracy_circle_fill_color">#80FF0000</color> <!-- 填充颜色 -->
+    <color name="accuracy_circle_stroke_color">#FF0000</color> <!-- 边框颜色 -->
 
 </resources>

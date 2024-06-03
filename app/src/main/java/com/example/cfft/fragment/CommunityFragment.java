@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.cfft.CircleTransform;
 import com.example.cfft.DetailActivity;
+import com.example.cfft.MapActivity;
 import com.example.cfft.PublishActivity;
 import com.example.cfft.R;
 import com.example.cfft.UrlConstants;
@@ -109,7 +110,7 @@ public class CommunityFragment extends Fragment {
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PublishActivity.class);
+                Intent intent = new Intent(getActivity(), MapActivity.class);
                 intent.putExtra("token", finalToken);
                 startActivityForResult(intent, REQUEST_CODE_ADD_ITEM);
             }

@@ -2,6 +2,7 @@ package com.example.cfft.enity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class CommentVO implements Serializable {
     private Integer parentCommentId;
     private Integer likeCount;
     private Integer replyCount;
+    private List<CommentVO> replies; // 子评论列表
 
     public CommentVO(String userImage, Integer commentId, String content, Date publishTime, String username, Integer postId, Integer parentCommentId, Integer likeCount, Integer replyCount) {
         this.userImage = userImage;
@@ -27,6 +29,7 @@ public class CommentVO implements Serializable {
         this.parentCommentId = parentCommentId;
         this.likeCount = likeCount;
         this.replyCount = replyCount;
+
     }
 
     public CommentVO() {
@@ -81,8 +84,8 @@ public class CommentVO implements Serializable {
         this.postId = postId;
     }
 
-    public Integer getParentCommentId() {
-        return parentCommentId;
+    public Integer getParentCommentId(int parentCommentId) {
+        return this.parentCommentId;
     }
 
     public void setParentCommentId(Integer parentCommentId) {
