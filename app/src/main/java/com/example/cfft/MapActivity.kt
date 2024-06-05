@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -15,18 +16,24 @@ import com.baidu.mapapi.SDKInitializer
 import com.baidu.mapapi.map.BaiduMap
 import com.baidu.mapapi.map.BitmapDescriptor
 import com.baidu.mapapi.map.BitmapDescriptorFactory
+import com.baidu.mapapi.map.MapPoi
+
 import com.baidu.mapapi.map.MapStatusUpdateFactory
 import com.baidu.mapapi.map.MapView
 import com.baidu.mapapi.map.MarkerOptions
 import com.baidu.mapapi.map.MyLocationConfiguration
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
+import com.example.cfft.enity.MushRoomVO
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 
 class MapActivity : AppCompatActivity() {
 
     private lateinit var mapView: MapView
     private lateinit var baiduMap: BaiduMap
     private lateinit var locationClient: LocationClient
+    private lateinit var mushroom: MushRoomVO // 将mushroom设为全局变量
     // 调整图片资源的缩放比例
     private fun scaleBitmap(bitmapDescriptor: BitmapDescriptor, scale: Float): BitmapDescriptor {
         val originBitmap = bitmapDescriptor.bitmap
@@ -57,8 +64,44 @@ class MapActivity : AppCompatActivity() {
         val option = LocationClientOption()
         option.isOpenGps = true // 打开GPS
         option.setCoorType("bd09ll") // 设置百度坐标类型
-        option.setScanSpan(1000) // 定位间隔时间
+        option.setScanSpan(100000) // 定位间隔时间
         locationClient.locOption = option
+
+        // 添加地图点击事件监听器
+        baiduMap.setOnMapClickListener(object : BaiduMap.OnMapClickListener {
+            override fun onMapClick(latLng: LatLng?) {
+                // 检查是否点击在有效区域内
+                latLng?.let {
+                    // 移动地图中心到点击位置
+                    val update = MapStatusUpdateFactory.newLatLng(latLng)
+                    baiduMap.animateMapStatus(update)
+                }
+            }
+
+            override fun onMapPoiClick(mapPoi: MapPoi?) {
+
+            }
+        })
+
+
+        // 获取传递的数据
+        val mushroomJson = intent.getStringExtra("mushroomJson")
+        if (mushroomJson != null) {
+            val gson = Gson()
+            mushroom = gson.fromJson(mushroomJson, MushRoomVO::class.java)
+            if (mushroom.locations.isNotEmpty()) {
+                val firstLocation = mushroom.locations[0] // 获取第一个蘑菇地点
+                val firstLatLng = LatLng(firstLocation.latitude.toDouble(), firstLocation.longitude.toDouble())
+
+                // 移动地图中心到第一个蘑菇地点
+                val update = MapStatusUpdateFactory.newLatLng(firstLatLng)
+                baiduMap.animateMapStatus(update)
+            }
+
+            displayMushroomLocations(mushroom)
+        }
+
+
 // 添加点标记
         val originalBitmapDescriptor1 = BitmapDescriptorFactory.fromResource(R.drawable.img)
         val scaledBitmapDescriptor = scaleBitmap(originalBitmapDescriptor1, 0.015f) // 缩放比例为0.5
@@ -80,10 +123,24 @@ class MapActivity : AppCompatActivity() {
         // 设置点标记点击事件
         baiduMap.setOnMarkerClickListener { marker ->
             // 获取额外信息
-            val extraInfo = marker.extraInfo
-            val value = extraInfo.getString("key")
-            // 在这里处理点击事件，比如显示信息窗口
-            true // 返回 true 表示消费了点击事件，false 表示未消费
+//            val extraInfo = marker.extraInfo
+            val value = mushroom.mushroomDesc
+            val value1 = mushroom.mushroomName
+
+            // 创建底部对话框
+            val bottomSheetDialog = BottomSheetDialog(this)
+            bottomSheetDialog.setContentView(R.layout.bottom_sheet_layout)
+
+            // 设置底部对话框中的文本
+            val textView = bottomSheetDialog.findViewById<TextView>(R.id.textView)
+            textView?.text = value
+            val nameView = bottomSheetDialog.findViewById<TextView>(R.id.nameView)
+            nameView?.text = value1
+            // 显示底部对话框
+            bottomSheetDialog.show()
+
+            // 返回 true 表示消费了点击事件，false 表示未消费
+            true
         }
         // 设置定位监听器
         locationClient.registerLocationListener(object : BDAbstractLocationListener() {
@@ -110,9 +167,9 @@ class MapActivity : AppCompatActivity() {
                     )
                     baiduMap.setMyLocationConfiguration(myLocationConfig)
                     // 将地图中心移动到当前位置
-                    val currentLatLng = LatLng(it.latitude, it.longitude)
-                    val update = MapStatusUpdateFactory.newLatLng(currentLatLng)
-                    baiduMap.animateMapStatus(update)
+//                    val currentLatLng = LatLng(it.latitude, it.longitude)
+//                    val update = MapStatusUpdateFactory.newLatLng(currentLatLng)
+//                    baiduMap.animateMapStatus(update)
                     baiduMap.setMyLocationData(locData)
                 }
             }
@@ -124,6 +181,21 @@ class MapActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 1)
         } else {
             locationClient.start()
+        }
+    }
+
+    // 在地图上显示蘑菇分布地点
+    private fun displayMushroomLocations(mushroom: MushRoomVO) {
+        val originalBitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.img)
+        val scaledBitmapDescriptor = scaleBitmap(originalBitmapDescriptor, 0.015f)
+        for (location in mushroom.locations) {
+            val latLng = LatLng(location.latitude.toDouble(), location.longitude.toDouble())
+
+            val markerOptions = MarkerOptions()
+                .position(latLng)
+                .icon(scaledBitmapDescriptor) // 使用你的标记图标
+                .title(location.description)
+            baiduMap.addOverlay(markerOptions)
         }
     }
 

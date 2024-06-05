@@ -90,6 +90,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             commentLikeCountTextView.setText(String.valueOf(comment.getLikeCount()));
             commentReplyCountTextView.setText(String.valueOf(comment.getReplyCount()));
 
+
             // 更新回复列表
             replyAdapter.setReplyList(comment.getReplies());
         }

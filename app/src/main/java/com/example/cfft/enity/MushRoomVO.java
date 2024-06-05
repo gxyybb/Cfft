@@ -55,7 +55,8 @@ public class MushRoomVO {
      */
 
     private Integer isPoison;
-
+    private String mushroom3d;
+    public List<Location> locations;
     public Integer getMushroomId() {
         return mushroomId;
     }

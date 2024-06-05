@@ -1,6 +1,8 @@
 package com.example.cfft;
 
 import android.util.Log;
+
+import com.example.cfft.enity.Location;
 import com.example.cfft.enity.MushRoomVO;
 
 import org.jetbrains.annotations.NotNull;
@@ -8,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.*;
@@ -108,7 +111,21 @@ public class ButtonApi {
                     mushRoomVO.setMushroomLocation(dataObject.getString("mushroomLocation"));
                     mushRoomVO.setMushroomDesc(dataObject.getString("mushroomDesc"));
                     mushRoomVO.setIsPoison(dataObject.getInt("isPoison"));
-
+                    // 解析 locations
+                    JSONArray locationsArray = dataObject.getJSONArray("locations");
+                    List<Location> locations = new ArrayList<>();
+                    for (int k = 0; k < locationsArray.length(); k++) {
+                        JSONObject locationObject = locationsArray.getJSONObject(k);
+                        Location location = new Location();
+                        location.setId(locationObject.getInt("id"));
+                        location.setProvince(locationObject.getString("province"));
+                        location.setCity(locationObject.getString("city"));
+                        location.setLatitude(BigDecimal.valueOf(locationObject.getDouble("latitude")));
+                        location.setLongitude(BigDecimal.valueOf(locationObject.getDouble("longitude")));
+                        location.setDescription(locationObject.getString("description"));
+                        locations.add(location);
+                    }
+                    mushRoomVO.setLocations(locations);
                     // 解析图片列表
                     JSONArray imageArray = dataObject.getJSONArray("mushroomImages");
                     if (imageArray.length() > 0) {

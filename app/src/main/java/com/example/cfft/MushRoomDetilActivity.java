@@ -1,7 +1,9 @@
 package com.example.cfft;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -61,6 +63,15 @@ public class MushRoomDetilActivity extends AppCompatActivity {
             LocationTextView1.setText(mushroom.getMushroomLocation());
             TextView DescTextView11 = findViewById(R.id.DescTextView11);
             DescTextView11.setText(mushroom.getMushroomDesc());
+            // 为 LocationTextView1 添加点击事件
+            LocationTextView1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MushRoomDetilActivity.this, MapActivity.class);
+                    intent.putExtra("mushroomJson", mushroomJson);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }
