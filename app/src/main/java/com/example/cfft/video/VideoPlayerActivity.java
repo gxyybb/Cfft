@@ -112,7 +112,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         // 设置评论列表适配器
         List<CommentVO> comments = commentList;
-        commentAdapter = new CommentAdapter(this, comments);
+        commentAdapter = new CommentAdapter(this, comments,1);
         recyclerViewComments.setAdapter(commentAdapter);
     }
 

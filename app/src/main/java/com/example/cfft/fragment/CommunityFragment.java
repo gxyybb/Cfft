@@ -168,6 +168,7 @@ public class CommunityFragment extends Fragment {
                             try {
                                 UserData userData = gson.fromJson(gson.toJson(resultVO.getData()), UserData.class);
                                 if (userData != null) {
+                                    if (getActivity() != null) {
                                     // 更新UI
                                     getActivity().runOnUiThread(new Runnable() {
                                         @Override
@@ -175,6 +176,7 @@ public class CommunityFragment extends Fragment {
                                             updateUI(userData);
                                         }
                                     });
+                                    }
                                 } else {
                                     Log.e("UserData", "Received null UserData from server");
                                 }

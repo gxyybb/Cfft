@@ -2,25 +2,25 @@
     <item
         android:id="@+id/navigation_community"
         android:icon="@drawable/home_icon"
-        android:title="Community"
+        android:title="社区"
         style="@style/MenuItemStyle" />
 
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/dashboard_icon"
-        android:title="Dashboard"
+        android:title="知识"
         style="@style/MenuItemStyle" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/community_icon"
-        android:title="Notifications"
+        android:title="视频"
         style="@style/MenuItemStyle" />
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/notifications_icon"
-        android:title="Home"
+        android:title="我的"
         style="@style/MenuItemStyle" />
 </menu>
 
