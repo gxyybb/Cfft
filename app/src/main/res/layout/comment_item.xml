@@ -76,5 +76,15 @@
         android:id="@+id/replyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/toggleRepliesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看回复"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_light"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 </LinearLayout>

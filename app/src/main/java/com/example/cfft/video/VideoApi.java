@@ -128,7 +128,7 @@ public class VideoApi {
                             Date publishTime = dateFormat.parse(publishTimeMillis);
 
                             String username = commentObject.getString("username");
-                            Integer postId = commentObject.getInt("postId");
+                            Integer postId = commentObject.getInt("typeId");
                             Integer likeCount = commentObject.getInt("likeCount");
                             Integer replyCount = commentObject.getInt("replyCount");
                             String content = commentObject.getString("content");

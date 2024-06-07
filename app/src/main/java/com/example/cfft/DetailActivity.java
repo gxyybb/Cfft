@@ -1,22 +1,19 @@
 package com.example.cfft;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cfft.adapter.CommentAdapter;
@@ -25,9 +22,9 @@ import com.example.cfft.enity.CommentVO;
 import com.example.cfft.enity.CommunityItem;
 import com.example.cfft.enity.Reply;
 import com.example.cfft.enity.ResultVO;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -60,25 +55,36 @@ public class DetailActivity extends AppCompatActivity {
     // 声明 RecyclerView 和适配器
     private RecyclerView mRecyclerView;
     private CommentAdapter mAdapter;
+    private ImageView imageView;
     private TextView lickText;
-    private EditText commentEditText;
-    private RecyclerView replyRecyclerView;
-    private ReplyAdapter replyAdapter;
+
     private CommunityItem item;
+    private String token;
+    private BottomSheetDialog bottomSheetDialog;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bottomSheetDialog = new BottomSheetDialog(this);
         setContentView(R.layout.activity_detail);
 
         // 获取从上一个 Activity 传递过来的数据
         item = (CommunityItem) getIntent().getSerializableExtra("itemData");
-
+        token =  getIntent().getStringExtra("token");
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) LinearLayout likeTextView = findViewById(R.id.like);
-        commentEditText = findViewById(R.id.commentEditText);
+//        commentEditText = findViewById(R.id.commentEditText);
         lickText = findViewById(R.id.likeCountTextView);
-        Button submitCommentButton = findViewById(R.id.submitCommentButton);
+//        Button submitCommentButton = findViewById(R.id.submitCommentButton);
+        imageView = findViewById(R.id.commentImageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                    openBottomSheet();
+
+            }
+        });
 
 
         // 创建并设置适配器
@@ -105,21 +111,32 @@ public class DetailActivity extends AppCompatActivity {
             // 请求评论数据
             fetchCommentsFromServer(item.getPostId());
             // 设置发送评论按钮点击事件
-            submitCommentButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String commentText = commentEditText.getText().toString();
-                    if (!commentText.isEmpty()) {
-                        // 发送评论到服务器
-                        sendCommentToServer(item.getPostId(), commentText);
-                    } else {
-                        Toast.makeText(DetailActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+
         }
 
+    private void openBottomSheet() {
+        View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.dialog_reply, null);
+        EditText replyEditText = bottomSheetView.findViewById(R.id.replyEditText);
+        Button sendButton = bottomSheetView.findViewById(R.id.sendButton);
 
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String replyEditText1 = replyEditText.getText().toString();
+                if (!replyEditText1.isEmpty()) {
+                    // 发送评论到服务器
+
+                    sendCommentToServer(item.getPostId(), replyEditText1);
+                    bottomSheetDialog.dismiss();
+                } else {
+                    Toast.makeText(DetailActivity.this, "评论内容不能为空", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+    }
     private void fetchCommunityItemFromServer(Integer postId) {
         OkHttpClient client = new OkHttpClient();
         String url = UrlConstants.POST_DETAIL_URL + postId; // 替换为实际的服务器地址和端点
@@ -238,8 +255,7 @@ public class DetailActivity extends AppCompatActivity {
         ImageView imageResourceImageView = findViewById(R.id.imageResourceImageView);
         TextView lickCountTextView = findViewById(R.id.likeCountTextView);
         TextView commentCountTextView = findViewById(R.id.commentCountTextView);
-//        ImageView likeImageView = findViewById(R.id.likeImageView);
-//        ImageView commentImageView = findViewById(R.id.commentImageView);
+
 
         // 设置标题和描述
         titleTextView.setText(item.getTitle());
@@ -294,11 +310,7 @@ public class DetailActivity extends AppCompatActivity {
         imageResourceImageView.setImageResource(item.getImageResource());
         lickCountTextView.setText(String.valueOf(item.getLikeCount()));
         commentCountTextView.setText(String.valueOf(item.getCommentCount()));
-//        // 设置点赞图标
-//        likeImageView.setImageResource(item.getLikeImageResource());
-//
-//        // 设置评论图标
-//        commentImageView.setImageResource(item.getCommentImageResource());
+
     }
 
     // 显示图片的对话框方法
@@ -366,7 +378,7 @@ public class DetailActivity extends AppCompatActivity {
                                         }
                                         commentVO.setUserImage((String) map.get("userImage"));
                                         commentVO.setUsername((String) map.get("username"));
-                                        commentVO.setPostId(((Double) map.get("postId")).intValue());
+                                        commentVO.setPostId(((Double) map.get("typeId")).intValue());
                                         Object parentCommentIdObj = map.get("parentCommentId");
                                         if (parentCommentIdObj != null) {
                                             commentVO.setParentCommentId(((Double) parentCommentIdObj).intValue());
@@ -401,7 +413,7 @@ public class DetailActivity extends AppCompatActivity {
 
 // 找到 RecyclerView
                             mRecyclerView = findViewById(R.id.commentRecyclerView);
-                            mAdapter = new CommentAdapter(DetailActivity.this, commentList,item.getPostId());
+                            mAdapter = new CommentAdapter(DetailActivity.this, commentList,item.getPostId(),token);
                             mRecyclerView.setAdapter(mAdapter);
 //// 获取每个评论的回复数据并更新 RecyclerView
 //                            fetchRepliesForComments(commentList);
@@ -419,53 +431,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
-    // 获取每个评论的回复数据
-    private void fetchRepliesForComments(List<CommentVO> commentList) {
-        for (CommentVO comment : commentList) {
-            // 构建请求 URL，获取该评论的回复数据
-            String url = UrlConstants.REPLY_LIST_URL + comment.getCommentId(); // 替换为实际的服务器地址和端点
 
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        String responseData = response.body().string();
-                        // 在子线程中解析 JSON 数据
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // 使用 Gson 解析 JSON 数据
-                                Gson gson = new Gson();
-                                ResultVO resultVO = gson.fromJson(responseData, ResultVO.class);
-
-                                // 解析回复数据
-                                List<Reply> replyList = new ArrayList<>();
-                                if (resultVO.getCode() == 200) {
-                                    Type listType = new TypeToken<List<Reply>>(){}.getType();
-                                    replyList = gson.fromJson(gson.toJson(resultVO.getData()), listType);
-                                }
-
-                                // 更新 RecyclerView 中的回复数据
-                                updateReplyList(comment, replyList);
-                            }
-                        });
-                    } else {
-                        // 请求失败
-                    }
-                }
-
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    // 请求失败
-                }
-            });
-        }
-    }
     // 更新 RecyclerView 中的回复数据
     private void updateReplyList(CommentVO comment, List<Reply> replyList) {
         // 找到评论对应的 RecyclerView ViewHolder
@@ -484,7 +450,7 @@ public class DetailActivity extends AppCompatActivity {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("token",token)
-                .add("postId", String.valueOf(postId))
+                .add("typeId", String.valueOf(postId))
                 .add("content", commentText)
                 .build();
 
@@ -499,12 +465,12 @@ public class DetailActivity extends AppCompatActivity {
                     // 评论成功添加到服务器，重新获取数据
                     fetchCommentsFromServer(postId);
                     // 清空评论输入框
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            commentEditText.setText("");
-                        }
-                    });
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+////                            commentEditText.setText("");
+//                        }
+//                    });
                 } else {
                     // 请求失败
                     // 获取响应状态码

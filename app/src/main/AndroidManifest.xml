@@ -61,6 +61,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:icon, android:theme,android:roundIcon"
         android:label="@string/app_name"
@@ -69,9 +70,9 @@
         android:theme="@style/Theme.Cfft"
         tools:targetApi="31">
         <!--支持api level 28 以上编译-->
-<!--        <uses-library-->
-<!--            android:name="org.apache.http.legacy"-->
-<!--            android:required="false" />-->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <service android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"/>
@@ -79,7 +80,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="QOxG0o6NKccoH8CVk2q5hikMHJg4JT00" />
         <activity
-            android:name="com.example.cfft.LoginActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

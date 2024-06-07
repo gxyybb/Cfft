@@ -154,42 +154,44 @@
             android:layout_weight="1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/detailLayout"
-            app:layout_constraintBottom_toTopOf="@id/commentLayout"
+            android:clickable="true"
+            android:focusable="true"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 
-        <LinearLayout
-            android:id="@+id/commentLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/commentLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
 
-            <!-- 评论输入框 -->
-            <EditText
-                android:id="@+id/commentEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="请输入评论"
-                android:inputType="textMultiLine"
+<!--            &lt;!&ndash; 评论输入框 &ndash;&gt;-->
+<!--            <EditText-->
+<!--                android:id="@+id/commentEditText"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:hint="请输入评论"-->
+<!--                android:inputType="textMultiLine"-->
 
-                android:maxLines="4"
-                android:scrollbars="vertical" />
+<!--                android:maxLines="4"-->
+<!--                android:scrollbars="vertical" />-->
 
-            <!-- 提交评论按钮 -->
-            <Button
-                android:id="@+id/submitCommentButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:text="提交评论" />
+<!--            &lt;!&ndash; 提交评论按钮 &ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/submitCommentButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:backgroundTint="@color/black"-->
+<!--                android:text="提交评论" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

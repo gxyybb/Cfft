@@ -28,14 +28,23 @@ public class VideoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
+        Bundle bundle = getArguments();
+        String token = null;
+        if (bundle != null) {
+            token = bundle.getString("token");
+        } else {
+            // 处理未找到token的情况
+        }
 
+        final String finalToken = token;
         recyclerView = view.findViewById(R.id.recycler_view);
-        videoAdapter = new VideoAdapter(requireContext());
+        videoAdapter = new VideoAdapter(requireContext(),finalToken);
         searchView = view.findViewById(R.id.search_view);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(videoAdapter);
+
 // 设置搜索框的监听器
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

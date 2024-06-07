@@ -30,9 +30,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
     private List<VideoData> videoDataList;
     private Context context;
+    private String token;
 
-    public VideoAdapter(Context context) {
+    public VideoAdapter(Context context,String token) {
         this.context = context;
+        this.token = token;
     }
 
     public void setVideoDataList(List<VideoData> videoDataList) {
@@ -94,6 +96,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
                         intent.putExtra("uploadtime",  uploadtime.getTime());
                         intent.putExtra("videoData",videoData);
                         intent.putExtra("commentList", new ArrayList<>(commentVOList));
+                        intent.putExtra("token",token);
                         context.startActivity(intent);
                     }
 

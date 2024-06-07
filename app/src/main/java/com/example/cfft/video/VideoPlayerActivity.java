@@ -52,6 +52,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         long uploadTimeMillis = intent.getLongExtra("uploadtime", 0);
         Date uploadTime = new Date(uploadTimeMillis);
         videoData = intent.getParcelableExtra("videoData");
+        String token = intent.getStringExtra("token");
         ArrayList<CommentVO> commentList = (ArrayList<CommentVO>) intent.getSerializableExtra("commentList");
         VideoView videoView = findViewById(R.id.video);
         MediaController mediaController = new MediaController(this);
@@ -112,7 +113,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         // 设置评论列表适配器
         List<CommentVO> comments = commentList;
-        commentAdapter = new CommentAdapter(this, comments,1);
+        commentAdapter = new CommentAdapter(this, comments,videoData.getVideoid(),token);
         recyclerViewComments.setAdapter(commentAdapter);
     }
 

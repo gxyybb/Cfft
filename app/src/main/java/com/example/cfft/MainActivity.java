@@ -86,8 +86,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void openNotificationsFragment() {
+            String token = getIntent().getStringExtra("msg");
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            VideoFragment VideoFragment = new VideoFragment();
+            VideoFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new VideoFragment())
+                    .replace(R.id.fragment_container,  VideoFragment)
                     .commit();
         }
 
