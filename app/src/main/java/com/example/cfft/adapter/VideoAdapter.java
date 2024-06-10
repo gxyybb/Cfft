@@ -80,7 +80,19 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
         public void bind(VideoData videoData) {
             this.videoData = videoData;
             titleTextView.setText(videoData.getTitle());
-            desTextView.setText(videoData.getDescription());
+//            desTextView.setText(videoData.getDescription());
+
+            String description = videoData.getDescription();
+
+            if (description.length() > 15) {
+                // 如果长度超过15个字符，截取前15个字符并添加省略号
+                String truncatedDescription = description.substring(0, 15) + "...";
+                desTextView.setText(truncatedDescription);
+            } else {
+                // 如果长度小于或等于15个字符，直接设置文字
+                desTextView.setText(description);
+            }
+
             Picasso.get().load(videoData.getCoverimage()).into(thumbnailImageView);
         }
 

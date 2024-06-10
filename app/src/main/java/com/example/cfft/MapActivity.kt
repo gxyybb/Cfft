@@ -42,6 +42,7 @@ class MapActivity : AppCompatActivity() {
     private lateinit var locationClient: LocationClient
     private lateinit var mushroom: MushRoomVO // 将mushroom设为全局变量
 
+
     // 调整图片资源的缩放比例
     private fun scaleBitmap(bitmapDescriptor: BitmapDescriptor, scale: Float): BitmapDescriptor {
         val originBitmap = bitmapDescriptor.bitmap
@@ -75,7 +76,13 @@ class MapActivity : AppCompatActivity() {
         option.setCoorType("bd09ll") // 设置百度坐标类型
         option.setScanSpan(100000) // 定位间隔时间
         locationClient.locOption = option
-        fetchLocationsFromServer()
+        val issee = intent.getStringExtra("IsSee")
+        Log.d("is", issee.toString())
+        if (issee == "true") {
+            // 如果需要从服务器获取地点信息，则调用 fetchLocationsFromServer() 方法
+            fetchLocationsFromServer()
+        }
+//        fetchLocationsFromServer()
 
         // 添加地图点击事件监听器
         baiduMap.setOnMapClickListener(object : BaiduMap.OnMapClickListener {
@@ -92,7 +99,7 @@ class MapActivity : AppCompatActivity() {
 
             }
         })
-
+//        val issee = intent.getStringExtra("IsSee")
         // 获取传递的数据
         val mushroomJson = intent.getStringExtra("mushroomJson")
         if (mushroomJson != null) {

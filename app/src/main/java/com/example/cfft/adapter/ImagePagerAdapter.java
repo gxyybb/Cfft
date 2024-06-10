@@ -1,14 +1,18 @@
 package com.example.cfft.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.cfft.MapActivity;
 import com.example.cfft.R;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -43,6 +47,8 @@ public class ImagePagerAdapter extends PagerAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.view_pager_item, container, false);
         ImageView imageView = view.findViewById(R.id.imageView);
         String imageUrl = imageUrls.get(position);
+        // 设置图片间距
+//        int margin = (int) context.getResources().getDimension(R.dimen.image_margin); // 获取间距尺寸
 
         // 创建 RoundedTransformationBuilder 对象，并设置圆角半径和边距
         int radius = 25;
@@ -60,7 +66,18 @@ public class ImagePagerAdapter extends PagerAdapter {
 
 // 使用 Picasso 加载图像并应用转换
         Picasso.get().load(imageUrl).transform(transformation).into(imageView);
-
+        // 为 ImageView 添加点击监听器
+        // 为 ImageView 添加点击监听器
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 创建 Intent 对象，将当前的 Context 与目标 Activity 类传递给它
+                Intent intent = new Intent(context, MapActivity.class);
+                intent.putExtra("IsSee", "true");
+                // 使用 Context 启动新的 Activity
+                context.startActivity(intent);
+            }
+        });
         container.addView(view);
         return view;
 

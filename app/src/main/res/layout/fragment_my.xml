@@ -29,7 +29,7 @@
         android:layout_height="120dp"
         android:scaleType="centerCrop"
         android:layout_marginTop="-100dp"
-        android:layout_marginEnd="16dp"
+
         android:layout_gravity="center"/>
         <ImageButton
             android:id="@+id/settings_button"
@@ -299,6 +299,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/img_7"
+        android:src="@drawable/rj"
         app:backgroundTint="@color/colorAccent" />
 </RelativeLayout>

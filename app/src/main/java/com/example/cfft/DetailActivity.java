@@ -1,6 +1,7 @@
 package com.example.cfft;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cfft.adapter.CommentAdapter;
@@ -44,6 +46,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -55,12 +58,13 @@ public class DetailActivity extends AppCompatActivity {
     // 声明 RecyclerView 和适配器
     private RecyclerView mRecyclerView;
     private CommentAdapter mAdapter;
-    private ImageView imageView;
+    private ImageView imageView,likeimg;
     private TextView lickText;
 
     private CommunityItem item;
     private String token;
     private BottomSheetDialog bottomSheetDialog;
+    private int updateCount;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class DetailActivity extends AppCompatActivity {
         item = (CommunityItem) getIntent().getSerializableExtra("itemData");
         token =  getIntent().getStringExtra("token");
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) LinearLayout likeTextView = findViewById(R.id.like);
+        likeimg =findViewById(R.id.likeImageView);
 //        commentEditText = findViewById(R.id.commentEditText);
         lickText = findViewById(R.id.likeCountTextView);
 //        Button submitCommentButton = findViewById(R.id.submitCommentButton);
@@ -110,10 +115,74 @@ public class DetailActivity extends AppCompatActivity {
 
             // 请求评论数据
             fetchCommentsFromServer(item.getPostId());
+
             // 设置发送评论按钮点击事件
-
+        checkPostLikedByUser(item.getPostId(),token);
         }
+    private void checkPostLikedByUser(int postId, String token) {
+        OkHttpClient client = new OkHttpClient();
 
+        Log.d("t",token);
+        // 构建 URL，包含参数 postId 和 token
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://101.200.79.152:8080/post/likeOrNo").newBuilder();
+        urlBuilder.addQueryParameter("postId", String.valueOf(postId));
+        urlBuilder.addQueryParameter("token", token);
+        String url = urlBuilder.build().toString();
+
+        // 创建 GET 请求
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+
+
+                        // 在 UI 线程中更新 UI
+                        try {
+                            JSONObject jsonObject = new JSONObject(responseData);
+                            String msg = jsonObject.getString("msg");
+                            // 在 UI 线程中更新 UI
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Drawable drawable;
+                                    if ("1".equals(msg)) {
+                                        updateCount = 1;
+                                        drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ilike);
+                                        // 当前帖子已被用户点赞
+                                        // 在这里执行相关操作
+                                    } else {
+                                        updateCount = 2;
+                                        drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.liked);
+                                        // 当前帖子未被用户点赞
+                                        // 在这里执行相关操作
+                                    }
+                                    likeimg.setImageDrawable(drawable);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                } else {
+                    // 处理请求失败或其他错误情况
+                    Log.e("CheckPostLiked", "Request failed");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+                // 处理请求失败，如果需要的话
+                Log.e("CheckPostLiked", "Request failed: " + e.getMessage());
+            }
+        });
+    }
     private void openBottomSheet() {
         View bottomSheetView = LayoutInflater.from(this).inflate(R.layout.dialog_reply, null);
         EditText replyEditText = bottomSheetView.findViewById(R.id.replyEditText);
@@ -188,7 +257,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
-
+//    private int updateCount = 0; // 记录成功更新的次数
     // 更新服务器上的点赞数
     private void updateLikeCountOnServer(int postId, final LinearLayout likeTextView) {
         OkHttpClient client = new OkHttpClient();
@@ -221,6 +290,17 @@ public class DetailActivity extends AppCompatActivity {
                                 public void run() {
                                     // 更新点赞文本视图
                                     lickText.setText(String.valueOf(updatedLikeCount));
+
+                                    if (++updateCount % 2 == 0) {
+                                        // 偶数次成功更新，显示liked图片
+                                        Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.liked);
+                                        likeimg.setImageDrawable(drawable);
+                                    } else {
+                                        // 奇数次成功更新，显示另一张图片（替换为您想要显示的图片资源）
+                                        Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ilike);
+                                        likeimg.setImageDrawable(drawable);
+                                    }
+
                                 }
                             });
                         } else {
@@ -247,7 +327,7 @@ public class DetailActivity extends AppCompatActivity {
         // 找到布局中的视图
         TextView titleTextView = findViewById(R.id.detailTitleTextView);
         TextView timeTextView = findViewById(R.id.publishTextView);
-        TextView descriptionTextView = findViewById(R.id.detailDescriptionTextView);
+//        TextView descriptionTextView = findViewById(R.id.detailDescriptionTextView);
         LinearLayout imageLayout = findViewById(R.id.imageLayout1);
         ImageView userAvatarImageView = findViewById(R.id.userAvatarImageView);
         TextView usernameTextView = findViewById(R.id.usernameTextView);
@@ -264,38 +344,48 @@ public class DetailActivity extends AppCompatActivity {
         String publishTime = sdf.format(item.getPublishTime());
         timeTextView.setText(publishTime);
 
-        descriptionTextView.setText(item.getContent());
+//        descriptionTextView.setText(item.getContent());
 
         // 使用 Picasso 加载图片
+// 使用 Picasso 加载图片
         List<String> imageUrls = item.getImg();
         if (imageUrls != null && !imageUrls.isEmpty()) {
-            for (String imageUrl : imageUrls) {
-                ImageView imageView = new ImageView(this);
-                int imageSize = (int) (150 * this.getResources().getDisplayMetrics().density);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imageSize, imageSize);
-                layoutParams.setMargins(0, 0, 8, 0); // 设置图片之间的间距
-                imageView.setLayoutParams(layoutParams);
+            for (int i = 0; i < imageUrls.size(); i += 2) { // 每次增加 2，确保每两个图片放在一个 LinearLayout 中
+                LinearLayout rowLayout = new LinearLayout(this);
+                rowLayout.setOrientation(LinearLayout.VERTICAL);
+                imageLayout.addView(rowLayout); // 添加到父布局
 
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                for (int j = 0; j < 2 && (i + j) < imageUrls.size(); j++) { // 添加两个图片或少于两个的图片到当前的 LinearLayout 中
+                    final int index = i + j; // 声明为最终的局部变量
 
-                // 使用Picasso加载图片，并裁剪为方形
-                Picasso.get()
-                        .load(imageUrl)
-                        .resize(imageSize, imageSize) // 设置宽高
-                        .centerCrop() // 中心裁剪
-                        .into(imageView);
+                    ImageView imageView = new ImageView(this);
+                    int imageSize = (int) (150 * this.getResources().getDisplayMetrics().density);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imageSize, imageSize);
+                    layoutParams.setMargins(0, 8, 8, 0); // 设置图片之间的间距
+                    imageView.setLayoutParams(layoutParams);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                imageLayout.addView(imageView);
+                    // 使用Picasso加载图片，并裁剪为方形
+                    Picasso.get()
+                            .load(imageUrls.get(index))
+                            .resize(imageSize, imageSize) // 设置宽高
+                            .centerCrop() // 中心裁剪
+                            .into(imageView);
 
-                // 设置点击事件
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showImageDialog(imageUrl);
-                    }
-                });
+                    rowLayout.addView(imageView); // 将图片添加到行布局中
+
+                    // 设置点击事件
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String clickedImageUrl = imageUrls.get(index);
+                            showImageDialog(clickedImageUrl);
+                        }
+                    });
+                }
             }
         }
+
 
         // 设置用户头像
         Picasso.get().load(item.getUserImg()).transform(new CircleTransform()).into(userAvatarImageView);
@@ -413,7 +503,7 @@ public class DetailActivity extends AppCompatActivity {
 
 // 找到 RecyclerView
                             mRecyclerView = findViewById(R.id.commentRecyclerView);
-                            mAdapter = new CommentAdapter(DetailActivity.this, commentList,item.getPostId(),token);
+                            mAdapter = new CommentAdapter(DetailActivity.this, commentList,item.getPostId(),token,null);
                             mRecyclerView.setAdapter(mAdapter);
 //// 获取每个评论的回复数据并更新 RecyclerView
 //                            fetchRepliesForComments(commentList);

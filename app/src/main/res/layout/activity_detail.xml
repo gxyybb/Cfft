@@ -67,13 +67,13 @@
                 tools:text="Title" />
 
             <!-- 描述 -->
-            <TextView
-                android:id="@+id/detailDescriptionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                tools:text="Description" />
+<!--            <TextView-->
+<!--                android:id="@+id/detailDescriptionTextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:textSize="16sp"-->
+<!--                tools:text="Description" />-->
 
 
             <!-- 内容 -->
@@ -106,7 +106,7 @@
                     android:id="@+id/likeImageView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/like_corn" />
+                    android:src="@drawable/liked" />
 
                 <!-- 点赞数文本 -->
                 <TextView

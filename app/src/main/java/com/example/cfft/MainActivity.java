@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (isFirstClick) {
                     // 第一次点击
-                    showToast("开始拖拽按钮");
+                    showToast("你好，倾听中...再次点击结束倾听");
                     startRecording();
                     isFirstClick = false;
                 } else {
                     // 第二次点击
-                    showToast("结束拖拽按钮");
+
                     stopRecording();
                     isFirstClick = true;
                 }
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             mediaRecorder.prepare();
             mediaRecorder.start();
             isRecording = true;
-            showToast("正在录音，滑动选择操作");
+//            showToast("正在录音，滑动选择操作");
         } catch (IOException e) {
             e.printStackTrace();
             isRecording = false;

@@ -66,7 +66,12 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
             for (int i = 0; i < imageUrls.size() && i < 2; i++) {
                 ImageView imageView = new ImageView(mContext);
                 int imageSize = (int) (150 * mContext.getResources().getDisplayMetrics().density);
-                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(imageSize, imageSize);
+//                ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) imageView.getLayoutParams();
+//                layoutParams1.setMargins(0, 8, 8, 0); // 设置左右间距
+//                imageView.setLayoutParams(layoutParams1);
+                ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(imageSize, imageSize);
+                // 设置左右间距
+                layoutParams.setMargins(0, 8, 8, 0);
                 imageView.setLayoutParams(layoutParams);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 // 使用Picasso加载图片，并裁剪为方形

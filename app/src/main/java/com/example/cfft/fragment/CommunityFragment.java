@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -110,7 +111,7 @@ public class CommunityFragment extends Fragment {
         fabAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MapActivity.class);
+                Intent intent = new Intent(getActivity(), PublishActivity.class);
                 intent.putExtra("token", finalToken);
                 startActivityForResult(intent, REQUEST_CODE_ADD_ITEM);
             }
@@ -133,6 +134,19 @@ public class CommunityFragment extends Fragment {
         }));
 
         viewPager = view.findViewById(R.id.viewPager);
+
+
+
+        // 添加点击事件监听器
+//        viewPager.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), MapActivity.class);
+//                startActivity(intent);
+//                // 在这里处理点击事件
+//                Toast.makeText(getContext(), "ViewPager clicked!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         fetchImageUrlsFromServer();
         fetchDataFromServer();
         fetchDataAndUpdateUI(token);

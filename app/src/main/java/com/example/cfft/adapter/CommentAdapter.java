@@ -1,13 +1,10 @@
 package com.example.cfft.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +19,6 @@ import com.example.cfft.CircleTransform;
 import com.example.cfft.R;
 import com.example.cfft.enity.CommentVO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -38,11 +32,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -55,13 +50,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private int postId;
     private String token;
     private boolean isReplyVisible = false;
+    private String type;
     private BottomSheetDialog bottomSheetDialog1;
-    public CommentAdapter(Context context, List<CommentVO> commentList, int postId,String token) {
+    public CommentAdapter(Context context, List<CommentVO> commentList, int postId,String token,String type) {
         this.mContext = context;
         this.mComments = commentList;
         this.postId = postId;
         this.token = token;
         bottomSheetDialog1 = new BottomSheetDialog(mContext);
+        this.type = type;
+
     }
 
     @NonNull
@@ -92,6 +90,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         private RecyclerView replyRecyclerView;
         private ReplyAdapter replyAdapter;
         private  TextView toggleRepliesTextView;
+
+
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -124,7 +124,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         CommentVO comment = mComments.get(position);
-                        fetchReplies(postId,comment.getCommentId());
+                        fetchReplies(postId,comment.getCommentId(),type);
                     }
                     if (isReplyVisible) {
 
@@ -186,15 +186,27 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             OkHttpClient client = new OkHttpClient();
 
             String url = "http://101.200.79.152:8080/comment/comment"; // 替换为你的API URL
+            AtomicReference<RequestBody> requestBodyAtomicReference = new AtomicReference<>();
+            RequestBody body = Optional.ofNullable(type).map(t -> {
+                requestBodyAtomicReference.set(new FormBody.Builder()
+                        .add("commentId", String.valueOf(commentId))
+                        .add("content", replyContent)
+                        .add("token", token)
+                        .add("typeId", String.valueOf(postId))
+                        .add("type", type)
+                        // 如果需要，可以添加其他必要的字段
+                        .build());
+                return requestBodyAtomicReference.get();
+            }).orElseGet(() -> {
+                requestBodyAtomicReference.set(new FormBody.Builder()
+                        .add("commentId", String.valueOf(commentId))
+                        .add("content", replyContent)
+                        .add("token", token)
+                        .add("typeId", String.valueOf(postId))
+                        .build());
+                return requestBodyAtomicReference.get();
+            });
 
-
-            RequestBody body = new FormBody.Builder()
-                    .add("commentId", String.valueOf(commentId))
-                    .add("content", replyContent)
-                    .add("token", token)
-                    .add("typeId", String.valueOf(postId))
-                    // 如果需要，可以添加其他必要的字段
-                    .build();
 
             Request request = new Request.Builder()
                     .url(url)
@@ -216,7 +228,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                             public void run() {
                                 Toast.makeText(mContext, "回复已发送", Toast.LENGTH_SHORT).show();
                                 // 可选：刷新回复列表
-                                fetchReplies(postId, commentId);
+                                fetchReplies(postId, commentId,type);
                             }
                         });
                     } else {
@@ -232,11 +244,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             });
         }
 
-        private void fetchReplies(int postId,int commentId) {
+        private void fetchReplies(int postId,int commentId,String type) {
             OkHttpClient client = new OkHttpClient();
+            String url ="";
+            if (type ==null) {
 
-            String url = "http://101.200.79.152:8080/comment/comments/" + commentId ; // 替换为你的API URL
-
+                 url = "http://101.200.79.152:8080/comment/comments/" + commentId; // 替换为你的API URL
+            }else {
+                url ="http://101.200.79.152:8080/comment/comments/" + commentId+"?type=video";
+            }
             Request request = new Request.Builder()
                     .url(url)
                     .build();
@@ -269,6 +285,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                 public void run() {
                                     replyAdapter.setReplyList(replies);
                                     replyAdapter.notifyDataSetChanged();
+
                                 }
                             });
                         } catch (JSONException | ParseException e) {
@@ -300,5 +317,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             });
 
         }
+    }
+
+    public void updateComments(List<CommentVO> newComments) {
+        this.mComments.clear();
+        this.mComments.addAll(newComments);
+        notifyDataSetChanged();
     }
 }

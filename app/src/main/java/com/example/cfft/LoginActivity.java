@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             // 在UI线程中更新UI
-                            Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, loginResponse.getMsg(), Toast.LENGTH_SHORT).show();
                             // 如果响应为登录成功，启动MainActivity
                             if (loginResponse.getCode() == 200) {
                                 // 处理返回的data数据，这里假设data是一个字符串类型

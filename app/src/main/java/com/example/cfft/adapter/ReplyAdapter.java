@@ -17,6 +17,7 @@ import com.example.cfft.enity.Reply;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,7 +28,8 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ReplyViewHol
 
     public ReplyAdapter(Context context, List<CommentVO> replies) {
         mContext = context;
-        mReplies = replies;
+        mReplies = replies != null ? replies : new ArrayList<>();
+
     }
 
     @NonNull
