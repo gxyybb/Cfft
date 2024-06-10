@@ -42,6 +42,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.8'
     implementation 'com.alibaba:fastjson:1.2.78' // 请替换为最新版本
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation 'com.android.support:design:26.1.0'
+//    implementation 'com.android.support:appcompat-v7:26.1.0'
+
 //    implementation files("libs/com.baidu.tts_2.6.3.c2aaa9f_20220922113422.jar")
 //    implementation 'com.baidu.lbsyun:BaiduMapSDK_Map:7.5.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')

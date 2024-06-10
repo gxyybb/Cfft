@@ -22,6 +22,7 @@ public class UrlConstants {
 
     // 发送评论接口
     public static final String SEND_COMMENT_URL = BASE_URL + "/comment";
-    public static final String REPLY_LIST_URL = BASE_URL + "/comment";
+
+    public static final String SEND_VIDEO_COMMENT_URL = BASE_URL + "/video/comment";
 }
 

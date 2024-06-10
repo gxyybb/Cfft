@@ -1,4 +1,5 @@
 package com.example.cfft
+
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -18,7 +19,6 @@ import com.baidu.mapapi.map.BaiduMap
 import com.baidu.mapapi.map.BitmapDescriptor
 import com.baidu.mapapi.map.BitmapDescriptorFactory
 import com.baidu.mapapi.map.MapPoi
-
 import com.baidu.mapapi.map.MapStatusUpdateFactory
 import com.baidu.mapapi.map.MapView
 import com.baidu.mapapi.map.MarkerOptions
@@ -26,7 +26,6 @@ import com.baidu.mapapi.map.MyLocationConfiguration
 import com.baidu.mapapi.map.MyLocationData
 import com.baidu.mapapi.model.LatLng
 import com.example.cfft.enity.MushRoomVO
-//import com.google.android.gms.awareness.snapshot.LocationResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import okhttp3.Call
@@ -34,7 +33,7 @@ import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import okio.IOException
+import java.io.IOException
 
 class MapActivity : AppCompatActivity() {
 
@@ -42,6 +41,7 @@ class MapActivity : AppCompatActivity() {
     private lateinit var baiduMap: BaiduMap
     private lateinit var locationClient: LocationClient
     private lateinit var mushroom: MushRoomVO // 将mushroom设为全局变量
+
     // 调整图片资源的缩放比例
     private fun scaleBitmap(bitmapDescriptor: BitmapDescriptor, scale: Float): BitmapDescriptor {
         val originBitmap = bitmapDescriptor.bitmap
@@ -54,8 +54,8 @@ class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 初始化百度地图 SDK
-        SDKInitializer.setAgreePrivacy(applicationContext, true);
-        SDKInitializer.initialize(applicationContext);
+        SDKInitializer.setAgreePrivacy(applicationContext, true)
+        SDKInitializer.initialize(applicationContext)
         Log.d("MapActivity", "Privacy policy agreed and SDK initialized")
         setContentView(R.layout.activity_map)
 
@@ -76,6 +76,7 @@ class MapActivity : AppCompatActivity() {
         option.setScanSpan(100000) // 定位间隔时间
         locationClient.locOption = option
         fetchLocationsFromServer()
+
         // 添加地图点击事件监听器
         baiduMap.setOnMapClickListener(object : BaiduMap.OnMapClickListener {
             override fun onMapClick(latLng: LatLng?) {
@@ -91,7 +92,6 @@ class MapActivity : AppCompatActivity() {
 
             }
         })
-
 
         // 获取传递的数据
         val mushroomJson = intent.getStringExtra("mushroomJson")
@@ -110,47 +110,28 @@ class MapActivity : AppCompatActivity() {
             displayMushroomLocations(mushroom)
         }
 
+        // 设置标记点击事件
+        baiduMap.setOnMarkerClickListener { marker ->
+            // 获取额外信息
+            val description = marker.extraInfo.getString("description")
+            val title1 = marker.extraInfo.getString("title")
+            // 创建底部对话框
+            val bottomSheetDialog = BottomSheetDialog(this)
+            bottomSheetDialog.setContentView(R.layout.bottom_sheet_layout)
 
-// 添加点标记
-//        val originalBitmapDescriptor1 = BitmapDescriptorFactory.fromResource(R.drawable.location)
-//        val scaledBitmapDescriptor = scaleBitmap(originalBitmapDescriptor1, 0.2f) // 缩放比例为0.5
+            // 设置底部对话框中的文本
+            val textView = bottomSheetDialog.findViewById<TextView>(R.id.textView)
+            textView?.text = description
+            val nameView = bottomSheetDialog.findViewById<TextView>(R.id.nameView)
+            nameView?.text =title1
+            Log.d("11", title1.toString())
+            // 显示底部对话框
+            bottomSheetDialog.show()
 
-// 添加点标记
-//        val markerOptions = MarkerOptions()
-//            .position(LatLng(39.90923, 116.397428)) // 设置位置
-//            .icon(scaledBitmapDescriptor) // 设置缩放后的图标
-//            .animateType(MarkerOptions.MarkerAnimateType.grow) // 设置生长动画
-//            .zIndex(10) // 设置层级
-//            .draggable(true) // 设置可拖拽
-//            .title("Marker Title") // 设置标题
-//            .extraInfo(Bundle().apply {
-//                // 可以在这里设置一些额外信息
-//                putString("key", "value")
-//            })
-//        baiduMap.addOverlay(markerOptions)
-//
-//        // 设置点标记点击事件
-//        baiduMap.setOnMarkerClickListener { marker ->
-//            // 获取额外信息
-////            val extraInfo = marker.extraInfo
-//            val value = mushroom.mushroomDesc
-//            val value1 = mushroom.mushroomName
-//
-//            // 创建底部对话框
-//            val bottomSheetDialog = BottomSheetDialog(this)
-//            bottomSheetDialog.setContentView(R.layout.bottom_sheet_layout)
-//
-//            // 设置底部对话框中的文本
-//            val textView = bottomSheetDialog.findViewById<TextView>(R.id.textView)
-//            textView?.text = value
-//            val nameView = bottomSheetDialog.findViewById<TextView>(R.id.nameView)
-//            nameView?.text = value1
-//            // 显示底部对话框
-//            bottomSheetDialog.show()
-//
-//            // 返回 true 表示消费了点击事件，false 表示未消费
-//            true
-//        }
+            // 返回 true 表示消费了点击事件，false 表示未消费
+            true
+        }
+
         // 设置定位监听器
         locationClient.registerLocationListener(object : BDAbstractLocationListener() {
             override fun onReceiveLocation(location: BDLocation?) {
@@ -162,23 +143,20 @@ class MapActivity : AppCompatActivity() {
                         .build()
 
                     // 创建自定义定位图标
-                    // 在 onReceiveLocation 方法中使用
-                    val bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.location)
+                    val bitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.location1)
                     val adjustedBitmapDescriptor = scaleBitmap(bitmapDescriptor, 0.15f) // 0.5f 为缩放比例
+
                     // 设置自定义定位图标
                     val myLocationConfig = MyLocationConfiguration(
                         MyLocationConfiguration.LocationMode.NORMAL,
                         true, // 是否显示方向信息
-
                         adjustedBitmapDescriptor,
                         ContextCompat.getColor(applicationContext, R.color.accuracy_circle_fill_color), // 填充颜色
                         ContextCompat.getColor(applicationContext, R.color.accuracy_circle_stroke_color) // 边框颜色
                     )
                     baiduMap.setMyLocationConfiguration(myLocationConfig)
+
                     // 将地图中心移动到当前位置
-//                    val currentLatLng = LatLng(it.latitude, it.longitude)
-//                    val update = MapStatusUpdateFactory.newLatLng(currentLatLng)
-//                    baiduMap.animateMapStatus(update)
                     baiduMap.setMyLocationData(locData)
                 }
             }
@@ -192,6 +170,7 @@ class MapActivity : AppCompatActivity() {
             locationClient.start()
         }
     }
+
     private fun fetchLocationsFromServer() {
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -231,35 +210,15 @@ class MapActivity : AppCompatActivity() {
         for (location in locations) {
             val latLng = LatLng(location.latitude, location.longitude)
 
-            val markerOptions= MarkerOptions()
+            val markerOptions = MarkerOptions()
                 .position(latLng)
                 .icon(scaledBitmapDescriptor)
-                .title("${location.province} - ${location.city}") // 设置标题为省市信息
+//                .title("${location.province} - ${location.city}") // 设置标题为省市信息
                 .extraInfo(Bundle().apply {
-                    putString("description", location.description ?: "") // 设置额外信息为描述，如果为空则设置为空字符串
+                    putString("description", location.description ?: "")
+                    putString("title", "${location.province} - ${location.city}") // 设置额外信息为描述，如果为空则设置为空字符串
                 })
             baiduMap.addOverlay(markerOptions)
-        }
-
-        // 设置点标记点击事件
-        baiduMap.setOnMarkerClickListener { marker ->
-            // 获取额外信息
-            val description = marker.extraInfo.getString("description")
-
-            // 创建底部对话框
-            val bottomSheetDialog = BottomSheetDialog(this)
-            bottomSheetDialog.setContentView(R.layout.bottom_sheet_layout)
-
-            // 设置底部对话框中的文本
-            val textView = bottomSheetDialog.findViewById<TextView>(R.id.textView)
-            textView?.text = description
-            val nameView = bottomSheetDialog.findViewById<TextView>(R.id.nameView)
-            nameView?.text = marker.title
-            // 显示底部对话框
-            bottomSheetDialog.show()
-
-            // 返回 true 表示消费了点击事件，false 表示未消费
-            true
         }
     }
 
@@ -273,7 +232,11 @@ class MapActivity : AppCompatActivity() {
             val markerOptions = MarkerOptions()
                 .position(latLng)
                 .icon(scaledBitmapDescriptor)
-                .title(location.description ?: "") // 设置标题为描述，如果为空则设置为空字符串
+//                .title(location.description ?: "") // 设置标题为描述，如果为空则设置为空字符串
+                .extraInfo(Bundle().apply {
+                    putString("description", location.description ?: "")
+                    putString("title", "${location.province} - ${location.city}") // 设置额外信息为描述，如果为空则设置为空字符串
+                })
             baiduMap.addOverlay(markerOptions)
         }
     }
@@ -296,6 +259,7 @@ class MapActivity : AppCompatActivity() {
         mapView.onDestroy()
         locationClient.stop()
     }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -303,6 +267,7 @@ class MapActivity : AppCompatActivity() {
         }
     }
 }
+
 data class LocationResponse(
     val code: Int,
     val msg: String?,

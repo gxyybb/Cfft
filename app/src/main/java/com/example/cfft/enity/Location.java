@@ -13,12 +13,12 @@ public class Location implements Serializable {
     /**
      * 
      */
-    private String province;
+    public String province;
 
     /**
      * 
      */
-    private String city;
+    public String city;
 
     /**
      * 

@@ -19,6 +19,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation" />
-
+    <!-- 悬浮可移动按钮 -->
+    <com.example.cfft.DragFloatActionButton
+        android:id="@+id/floating_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:src="@drawable/malou"
+        app:backgroundTint="@color/colorPrimary" />
 </RelativeLayout>
 

@@ -16,7 +16,7 @@
     <MediaController
         android:id="@+id/mediaController"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_below="@id/videoparent" />
     <TextView
         android:id="@+id/textViewTitle"
