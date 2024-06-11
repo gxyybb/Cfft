@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color_16"
+    android:background="@drawable/chat1rounded"
+    android:layout_marginTop="10dp"
     android:padding="8dp"
     android:gravity="start">
 
@@ -10,6 +11,7 @@
         android:id="@+id/textViewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:textColor="@android:color/black"
         android:text="This is an incoming message" />
 

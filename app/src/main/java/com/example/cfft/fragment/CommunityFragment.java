@@ -1,5 +1,6 @@
 package com.example.cfft.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -152,6 +153,17 @@ public class CommunityFragment extends Fragment {
         fetchDataAndUpdateUI(token);
 
         return view;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD_ITEM && resultCode == Activity.RESULT_OK) {
+            // 获取返回的数据
+            String title = data.getStringExtra("title");
+            String content = data.getStringExtra("content");
+            // 在这里处理返回的数据，并刷新 Fragment 或 Activity
+            fetchDataFromServer();
+        }
     }
     private void fetchDataAndUpdateUI(String token) {
         OkHttpClient client = new OkHttpClient();

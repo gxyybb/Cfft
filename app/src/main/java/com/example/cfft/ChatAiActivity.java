@@ -60,7 +60,7 @@ public class ChatAiActivity extends AppCompatActivity {
     private List<ChatMessage> messageList;
     private Button changeButton;
     private LinearLayout swipeHintLayout;
-    private TextView swipeHintLeft, swipeHintRight, swipeHintDown;
+    private TextView swipeHintLeft, swipeHintRight; //swipeHintDown;
     private Markwon markwon;
     private boolean isAi3 = true;
     private boolean isAi4 = false;
@@ -87,7 +87,7 @@ public class ChatAiActivity extends AppCompatActivity {
         swipeHintLayout = findViewById(R.id.swipeHintLayout);
         swipeHintLeft = findViewById(R.id.swipeHintLeft);
         swipeHintRight = findViewById(R.id.swipeHintRight);
-        swipeHintDown = findViewById(R.id.swipeHintDown);
+//        swipeHintDown = findViewById(R.id.swipeHintDown);
 
         markwon = Markwon.create(this);
         messageList = new ArrayList<>();
@@ -152,17 +152,17 @@ public class ChatAiActivity extends AppCompatActivity {
                         Log.d("Gesture", "Scrolling Right");
                         swipeHintRight.setTextColor(Color.GREEN);
                         swipeHintLeft.setTextColor(Color.BLACK);
-                        swipeHintDown.setTextColor(Color.BLACK);
+//                        swipeHintDown.setTextColor(Color.BLACK);
                     } else {
                         Log.d("Gesture", "Scrolling Left");
                         swipeHintLeft.setTextColor(Color.RED);
                         swipeHintRight.setTextColor(Color.BLACK);
-                        swipeHintDown.setTextColor(Color.BLACK);
+//                        swipeHintDown.setTextColor(Color.BLACK);
                     }
                 } else {
                     if (diffY > 0) {
                         Log.d("Gesture", "Scrolling Down");
-                        swipeHintDown.setTextColor(Color.BLUE);
+//                        swipeHintDown.setTextColor(Color.BLUE);
                         swipeHintLeft.setTextColor(Color.BLACK);
                         swipeHintRight.setTextColor(Color.BLACK);
                     }
@@ -188,7 +188,7 @@ public class ChatAiActivity extends AppCompatActivity {
                 } else {
                     if (diffY > 0) {
                         Log.d("Gesture", "Fling Down");
-                        onSwipeDown();
+//                        onSwipeDown();
                     }
                 }
                 return true;
@@ -206,7 +206,7 @@ public class ChatAiActivity extends AppCompatActivity {
                 // 重置文字颜色
                 swipeHintLeft.setTextColor(Color.BLACK);
                 swipeHintRight.setTextColor(Color.BLACK);
-                swipeHintDown.setTextColor(Color.BLACK);
+//                swipeHintDown.setTextColor(Color.BLACK);
             }
             return true;
         });
@@ -223,10 +223,10 @@ public class ChatAiActivity extends AppCompatActivity {
         Toast.makeText(this, "左滑 - 取消", Toast.LENGTH_SHORT).show();
     }
 
-    private void onSwipeDown() {
-        Toast.makeText(this, "下滑 - 发送到/chat/file", Toast.LENGTH_SHORT).show();
-        sendMessageToFileServer();
-    }
+//    private void onSwipeDown() {
+//        Toast.makeText(this, "下滑 - 发送到/chat/file", Toast.LENGTH_SHORT).show();
+//        sendMessageToFileServer();
+//    }
 
     private void sendMessageToServer(String messageText) {
         RequestBody formBody = new MultipartBody.Builder()
@@ -443,7 +443,7 @@ public class ChatAiActivity extends AppCompatActivity {
                 onSwipeRight();
             } else if (y > 2 * screenHeight / 3) {
                 Log.d("Gesture", "Detected Down Swipe in stopRecording");
-                onSwipeDown();
+//                onSwipeDown();
             } else {
                 Toast.makeText(this, "操作取消", Toast.LENGTH_SHORT).show();
             }

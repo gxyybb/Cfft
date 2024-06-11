@@ -76,23 +76,32 @@
         <!-- 点赞文本 -->
         <TextView
             android:id="@+id/likeTextView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:text="0 Likes"
-
+            android:textSize="20dp"
+            android:gravity="right"
             android:drawablePadding="8dp"
-            android:layout_marginEnd="16dp"/>
-
+            android:layout_marginEnd="5dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/liked"/>
 
         <TextView
             android:id="@+id/commentEditText"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:text="0 "
-
+            android:textSize="20dp"
             android:drawablePadding="8dp"
-            android:layout_marginEnd="16dp"/>
-
+            android:gravity="right"
+            android:layout_marginEnd="5dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/comment2_icon"
+            android:layout_marginEnd="40dp"/>
 
     </LinearLayout>
 

@@ -502,7 +502,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
 // 找到 RecyclerView
-                            mRecyclerView = findViewById(R.id.commentRecyclerView);
+                             mRecyclerView = findViewById(R.id.commentRecyclerView);
                             mAdapter = new CommentAdapter(DetailActivity.this, commentList,item.getPostId(),token,null);
                             mRecyclerView.setAdapter(mAdapter);
 //// 获取每个评论的回复数据并更新 RecyclerView

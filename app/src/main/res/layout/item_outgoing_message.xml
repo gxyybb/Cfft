@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/color_16"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/chat_rounded_corner"
     android:padding="8dp"
     android:gravity="end">
 

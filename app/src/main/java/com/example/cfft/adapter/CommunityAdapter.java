@@ -104,12 +104,17 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.View
         holder.commentTextView.setText(String.valueOf(currentItem.getCommentCount()));
     }
     private void showImageDialog(String imageUrl) {
-        Dialog dialog = new Dialog(mContext);
+        Dialog dialog = new Dialog(mContext,R.style.FullScreenDialog);
         dialog.setContentView(R.layout.dialog_image);
 
         ImageView imageView = dialog.findViewById(R.id.dialogImageView);
         Picasso.get().load(imageUrl).into(imageView);
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
